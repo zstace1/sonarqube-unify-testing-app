@@ -15,3 +15,13 @@ jobs:
           labels: sonarqube
           artifact-id: 0d0effe4-2ea9-4b27-ae8a-2e098bab223b
           target-environment: dev
+      - uses: cloudbees-io/register-deployed-artifact@v2
+        with:
+          labels: sonarqube
+          artifact-id: 0d0effe4-2ea9-4b27-ae8a-2e098bab223b
+          target-environment: staging
+      - uses: cloudbees-io/register-deployed-artifact@v2
+        with:
+          labels: sonarqube
+          artifact-id: 0d0effe4-2ea9-4b27-ae8a-2e098bab223b
+          target-environment: production
