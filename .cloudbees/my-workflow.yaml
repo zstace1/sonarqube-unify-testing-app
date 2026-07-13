@@ -1,0 +1,17 @@
+
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+jobs:
+  deploy:
+    steps:
+      - uses: cloudbees-io/register-deployed-artifact@v2
+        with:
+          labels: sonarqube
+          artifact-id: 0d0effe4-2ea9-4b27-ae8a-2e098bab223b
+          target-environment: dev
