@@ -1,0 +1,64 @@
+# Build artifacts
+build/
+*.o
+*.out
+*.exe
+
+# Test results
+test-results/
+*.xml
+*.sarif
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Security
+*.pem
+*.key
+*.cert
+.env
+.env.local
+credentials.json
+secrets.yaml
+
+# SonarQube
+.scannerwork/
+build-wrapper-output/
+
+# Trivy cache
+.trivy/
+trivy_*
+
+# OS
+Thumbs.db
