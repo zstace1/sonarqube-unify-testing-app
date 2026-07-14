@@ -1,0 +1,23 @@
+# Python dependencies for SDLC Metrics Demo Application
+
+# Web framework
+Flask==3.0.0
+Werkzeug==3.0.1
+Flask-WTF==1.2.1
+
+# Testing
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# Code quality
+flake8==6.1.0
+pylint==3.0.3
+
+# Security scanning (optional - for SCA scanning)
+bandit==1.7.5
+safety==2.3.5
+
+# YAML parsing (pinned old version - contains known published CVEs,
+# fixed in 5.4+; kept here to exercise the SCA scan stage)
+# Note: 5.3.1 (not 5.3) to satisfy bandit==1.7.5's PyYAML>=5.3.1 constraint
+PyYAML==5.3.1

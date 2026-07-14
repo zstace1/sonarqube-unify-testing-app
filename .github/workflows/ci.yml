@@ -1,0 +1,112 @@
+name: CI
+
+# This GitHub Actions workflow runs basic CI checks
+# The main SDLC metrics integration happens in Jenkins (see Jenkinsfile)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-c:
+    name: Test C Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make
+
+      - name: Build C application
+        run: |
+          make clean
+          make all
+
+      - name: Run C tests
+        run: make test
+
+      - name: Upload C test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c-test-results
+          path: test-results/c-test-results.xml
+
+  test-python:
+    name: Test Python Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python tests
+        run: |
+          pytest tests/python/ \
+            --junitxml=test-results/pytest-results.xml \
+            --verbose
+
+      - name: Upload Python test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-test-results
+          path: test-results/pytest-results.xml
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install linting tools
+        run: |
+          pip install flake8 pylint
+
+      - name: Run flake8
+        run: |
+          flake8 src/python/ --max-line-length=120 --statistics
+        continue-on-error: true
+
+  docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: sdlc-demo-app:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
