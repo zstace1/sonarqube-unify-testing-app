@@ -13,15 +13,15 @@ jobs:
       - uses: cloudbees-io/register-deployed-artifact@v2
         with:
           labels: sonarqube
-          artifact-id: 7a2a6fb9-90e6-4e02-8632-e50e75c9ca7a
+          artifact-id: 12862070-c693-4a19-be4d-f33a6c06e2ff
           target-environment: dev
       - uses: cloudbees-io/register-deployed-artifact@v2
         with:
           labels: sonarqube
-          artifact-id: 7a2a6fb9-90e6-4e02-8632-e50e75c9ca7a
+          artifact-id: 12862070-c693-4a19-be4d-f33a6c06e2ff
           target-environment: staging
       - uses: cloudbees-io/register-deployed-artifact@v2
         with:
           labels: sonarqube
-          artifact-id: 7a2a6fb9-90e6-4e02-8632-e50e75c9ca7a
+          artifact-id: 12862070-c693-4a19-be4d-f33a6c06e2ff
           target-environment: production
